@@ -13,45 +13,6 @@ if "data" not in st.session_state:
 st.title("Compra y Venta de Autos")
 st.markdown("Subí tu auto para vender o encontrá el auto que buscás.")
 
-# Ficha para cargar datos
-def cargar_datos():
-    with st.form("formulario_auto"):
-        st.subheader("Formulario para comprar o vender un auto")
-
-        # Información del usuario
-        nombre = st.text_input("Nombre", max_chars=50)
-        email = st.text_input("Email", max_chars=50)
-        telefono = st.text_input("Teléfono", max_chars=20)
-        tipo = st.radio("Qué querés hacer?", ["Comprar", "Vender"])
-
-        # Datos del vehículo
-        marca = st.text_input("Marca del auto", max_chars=30)
-        modelo = st.text_input("Modelo del auto", max_chars=30)
-        anio = st.number_input("Año del auto", min_value=1900, max_value=datetime.now().year, step=1)
-        estado = st.selectbox("Estado del auto", ["Nuevo", "Usado"])
-        papeles = st.radio("Papeles al día?", ["Sí", "No"])
-        descripcion = st.text_area("Descripción adicional")
-
-        # Botón de envío
-        enviado = st.form_submit_button("Enviar")
-
-        if enviado:
-            nuevo_registro = {
-                "Nombre": nombre,
-                "Email": email,
-                "Teléfono": telefono,
-                "Tipo": tipo,
-                "Marca": marca,
-                "Modelo": modelo,
-                "Año": anio,
-                "Estado": estado,
-                "Papeles": papeles,
-                "Descripción": descripcion,
-                "Fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            }
-            st.session_state["data"] = st.session_state["data"].append(nuevo_registro, ignore_index=True)
-            st.success("Datos enviados correctamente!")
-
 # Mostrar registros
 def mostrar_registros():
     st.subheader("Autos publicados")
@@ -59,6 +20,46 @@ def mostrar_registros():
         st.info("Aún no hay autos publicados.")
     else:
         st.dataframe(st.session_state["data"])
+
+# Ficha para cargar datos
+def cargar_datos():
+    with st.expander("Completar ficha para publicar un auto"):
+        with st.form("formulario_auto"):
+            st.subheader("Formulario para comprar o vender un auto")
+
+            # Información del usuario
+            nombre = st.text_input("Nombre", max_chars=50)
+            email = st.text_input("Email", max_chars=50)
+            telefono = st.text_input("Teléfono de contacto", max_chars=20)
+            tipo = st.radio("Qué querés hacer?", ["Comprar", "Vender"])
+
+            # Datos del vehículo
+            marca = st.text_input("Marca del auto", max_chars=30)
+            modelo = st.text_input("Modelo del auto", max_chars=30)
+            anio = st.number_input("Año del auto", min_value=1900, max_value=datetime.now().year, step=1)
+            estado = st.selectbox("Estado del auto", ["Nuevo", "Usado"])
+            papeles = st.radio("Papeles al día?", ["Sí", "No"])
+            descripcion = st.text_area("Descripción adicional")
+
+            # Botón de envío
+            enviado = st.form_submit_button("Enviar")
+
+            if enviado:
+                nuevo_registro = {
+                    "Nombre": nombre,
+                    "Email": email,
+                    "Teléfono": telefono,
+                    "Tipo": tipo,
+                    "Marca": marca,
+                    "Modelo": modelo,
+                    "Año": anio,
+                    "Estado": estado,
+                    "Papeles": papeles,
+                    "Descripción": descripcion,
+                    "Fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                }
+                st.session_state["data"] = st.session_state["data"].append(nuevo_registro, ignore_index=True)
+                st.success("Datos enviados correctamente!")
 
 # Botón flotante de WhatsApp
 whatsapp_button = """
@@ -91,6 +92,6 @@ whatsapp_button = """
 """
 
 # Render de las secciones
-cargar_datos()
 mostrar_registros()
+cargar_datos()
 st.markdown(whatsapp_button, unsafe_allow_html=True)
