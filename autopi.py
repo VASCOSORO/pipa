@@ -94,7 +94,7 @@ def cargar_datos():
                     st.success("Datos enviados correctamente!")
                     st.markdown(f"[Enviar datos por WhatsApp]({enlace_whatsapp})", unsafe_allow_html=True)
 
-# Botón flotante de WhatsApp y enlace a ficha
+# Nuevo botón flotante con logow.png
 floating_buttons = """
 <style>
 #buttons {
@@ -103,49 +103,20 @@ floating_buttons = """
     right: 20px;
     z-index: 100;
 }
-.button {
-    margin-bottom: 10px;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    text-decoration: none;
-    color: white;
-    border: none;
-    background: transparent;
-}
-#car-form {
-    background-image: url('logow.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+#whatsapp-button {
     width: 70px;
     height: 70px;
-}
-#whatsapp {
-    background-color: #25D366;
-    border-radius: 50%;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    background-image: url('logow.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    display: block;
 }
 </style>
 <div id="buttons">
-    <button id="car-form" class="button" onclick="window.showForm()"></button>
-    <a id="whatsapp" class="button" href="https://wa.me/+5492664502682?text=Vengo%20del%20site%20y%20quiero%20más%20info%20para%20comprar%20o%20vender%20mi%20auto" target="_blank">💬</a>
+    <a id="whatsapp-button" href="https://wa.me/+5492664502682?text=Vengo%20del%20site%20y%20quiero%20más%20info%20para%20comprar%20o%20vender%20mi%20auto" target="_blank"></a>
 </div>
-<script>
-    window.showForm = function() {
-        const streamlit = window.parent.document;
-        const expander = streamlit.querySelector('div[data-testid="stExpander"]');
-        if (expander) {
-            expander.scrollIntoView({ behavior: 'smooth' });
-            const button = expander.querySelector('button');
-            if (button && button.getAttribute('aria-expanded') === 'false') {
-                button.click();
-            }
-        }
-    };
-</script>
 """
 
 # Footer
