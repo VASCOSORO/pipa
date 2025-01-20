@@ -19,7 +19,7 @@ st.image("logof.png", width=300)
 st.markdown("<h1 style='text-align: center;'>Compra y Venta de Autos</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>Compra y Vende con Confianza</h3>", unsafe_allow_html=True)
 
-# Mostrar autos publicados con botones de interacción
+# Mostrar autos publicados con diseño estilo revista
 def mostrar_autos_publicados():
     st.subheader("Autos publicados")
     imagenes_publicadas = ["11.png", "12.png", "8.png", "9.png"]  # Lista de imágenes subidas por la empresa
@@ -27,11 +27,13 @@ def mostrar_autos_publicados():
     if not imagenes_publicadas:
         st.info("Aún no hay autos publicados.")
     else:
+        cols = st.columns(2)  # Dividir en dos columnas para diseño estilo revista
         for index, img in enumerate(imagenes_publicadas):
-            st.image(img, caption=f"Auto {index + 1}", use_column_width=True)
-            enlace_whatsapp = f"https://wa.me/+5492664502682?text=Quiero%20info%20sobre%20este%20auto:%20{img}"
-            st.markdown(f"[Quiero info sobre este auto]({enlace_whatsapp})", unsafe_allow_html=True)
-            st.markdown("---")
+            with cols[index % 2]:
+                st.image(img, caption=f"Auto {index + 1}", use_column_width=True)
+                enlace_whatsapp = f"https://wa.me/+5492664502682?text=Quiero%20info%20sobre%20este%20auto:%20{img}"
+                st.markdown(f"[Quiero info sobre este auto]({enlace_whatsapp})", unsafe_allow_html=True)
+                st.markdown("---")
 
 # Ficha para cargar datos
 def cargar_datos():
