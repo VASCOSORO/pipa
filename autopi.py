@@ -32,7 +32,7 @@ def mostrar_autos_publicados():
 
 # Ficha para cargar datos
 def cargar_datos():
-    with st.expander("Completar ficha para publicar un auto"):
+    with st.expander("<strong style='color: #007BFF; font-size: 20px;'>¡Completá la ficha para publicar un auto!</strong>", expanded=False):
         with st.form("formulario_auto", clear_on_submit=True):
             st.subheader("Formulario para comprar o vender un auto")
 
@@ -119,7 +119,7 @@ floating_buttons = """
 }
 </style>
 <div id="buttons">
-    <a id="car-form" class="button" href="#formulario_auto">🚗</a>
+    <a id="car-form" class="button" href="#expander-Completar_ficha_para_publicar_un_auto">🚗</a>
     <a id="whatsapp" class="button" href="https://wa.me/+5492664502682?text=Vengo%20del%20site%20y%20quiero%20más%20info%20para%20comprar%20o%20vender%20mi%20auto" target="_blank">💬</a>
 </div>
 """
