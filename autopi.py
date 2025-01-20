@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from PIL import Image
+from streamlit.components.v1 import html
 
 # Configuración inicial
 st.set_page_config(page_title="Compra y Venta de Autos", page_icon="🚗", layout="wide")
@@ -11,7 +12,7 @@ if "data" not in st.session_state:
     st.session_state["data"] = pd.DataFrame(columns=["Nombre", "Email", "Teléfono", "Tipo", "Marca", "Modelo", "Año", "Estado", "Papeles", "Descripción", "Fecha"])
 
 # Encabezado
-st.image("logof.png", width=400)
+st.image("logof.png", width=300)
 st.markdown("<h1 style='text-align: center;'>Compra y Venta de Autos</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>Compra y Vende con Confianza</h3>", unsafe_allow_html=True)
 
@@ -23,7 +24,26 @@ def mostrar_autos_publicados():
     if not imagenes_publicadas:
         st.info("Aún no hay autos publicados.")
     else:
-        st.image(imagenes_publicadas, caption=["Auto 1", "Auto 2", "Auto 3", "Auto 4"], width=400, use_column_width="auto")
+        html_content = """
+        <style>
+        .slider-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .slider img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        </style>
+        <div class="slider-container">
+            <div class="slider">
+                """ + "".join(f'<img src="{img}" alt="Auto" />' for img in imagenes_publicadas) + """
+            </div>
+        </div>
+        """
+        st.markdown(html_content, unsafe_allow_html=True)
 
 # Ficha para cargar datos
 def cargar_datos():
@@ -84,33 +104,38 @@ def cargar_datos():
                     st.success("Datos enviados correctamente!")
                     st.markdown(f"[Enviar datos por WhatsApp]({enlace_whatsapp})", unsafe_allow_html=True)
 
-# Botón flotante de WhatsApp
-whatsapp_button = """
+# Botón flotante de WhatsApp y enlace a ficha
+floating_buttons = """
 <style>
-#whatsapp {
+#buttons {
     position: fixed;
     bottom: 80px;
     right: 20px;
-    background-color: #25D366;
-    color: white;
-    border-radius: 50%;
+    z-index: 100;
+}
+.button {
+    margin-bottom: 10px;
     width: 60px;
     height: 60px;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    z-index: 100;
     cursor: pointer;
-}
-#whatsapp a {
-    color: white;
     text-decoration: none;
+    color: white;
+}
+#whatsapp {
+    background-color: #25D366;
+}
+#car-form {
+    background-color: #007BFF;
 }
 </style>
-<div id="whatsapp">
-    <a href="https://wa.me/+5492664502682?text=Vengo%20del%20site%20y%20quiero%20más%20info%20para%20comprar%20o%20vender%20mi%20auto" target="_blank">&#128172;</a>
+<div id="buttons">
+    <a id="car-form" class="button" href="#formulario_auto">🚗</a>
+    <a id="whatsapp" class="button" href="https://wa.me/+5492664502682?text=Vengo%20del%20site%20y%20quiero%20más%20info%20para%20comprar%20o%20vender%20mi%20auto" target="_blank">💬</a>
 </div>
 """
 
@@ -144,5 +169,5 @@ footer = """
 # Render de las secciones
 mostrar_autos_publicados()
 cargar_datos()
-st.markdown(whatsapp_button, unsafe_allow_html=True)
+st.markdown(floating_buttons, unsafe_allow_html=True)
 st.markdown(footer, unsafe_allow_html=True)
