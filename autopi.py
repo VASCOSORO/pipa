@@ -42,25 +42,44 @@ def cargar_datos():
             papeles = st.radio("Papeles al día?", ["Sí", "No"])
             descripcion = st.text_area("Descripción adicional")
 
+            # Subida de imágenes
+            imagenes = st.file_uploader("Subí hasta 3 imágenes del auto", type=["jpg", "jpeg", "png"], accept_multiple_files=True, key="imagenes_auto")
+
             # Botón de envío
             enviado = st.form_submit_button("Enviar")
 
             if enviado:
-                nuevo_registro = {
-                    "Nombre": nombre,
-                    "Email": email,
-                    "Teléfono": telefono,
-                    "Tipo": tipo,
-                    "Marca": marca,
-                    "Modelo": modelo,
-                    "Año": anio,
-                    "Estado": estado,
-                    "Papeles": papeles,
-                    "Descripción": descripcion,
-                    "Fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                }
-                st.session_state["data"] = st.session_state["data"].append(nuevo_registro, ignore_index=True)
-                st.success("Datos enviados correctamente!")
+                if imagenes and len(imagenes) > 3:
+                    st.error("Solo podés subir hasta 3 imágenes.")
+                else:
+                    nuevo_registro = {
+                        "Nombre": nombre,
+                        "Email": email,
+                        "Teléfono": telefono,
+                        "Tipo": tipo,
+                        "Marca": marca,
+                        "Modelo": modelo,
+                        "Año": anio,
+                        "Estado": estado,
+                        "Papeles": papeles,
+                        "Descripción": descripcion,
+                        "Fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    }
+                    st.session_state["data"] = st.session_state["data"].append(nuevo_registro, ignore_index=True)
+
+                    # Mensaje de WhatsApp
+                    mensaje = (
+                        f"Hola, soy {nombre}.\n"
+                        f"Tipo: {tipo}.\n"
+                        f"Marca: {marca}, Modelo: {modelo}, Año: {anio}.\n"
+                        f"Estado: {estado}, Papeles al día: {papeles}.\n"
+                        f"Descripción: {descripcion}.\n"
+                        f"Teléfono: {telefono}"
+                    )
+                    enlace_whatsapp = f"https://wa.me/+5492664502682?text={mensaje.replace(' ', '%20').replace('\n', '%0A')}"
+
+                    st.success("Datos enviados correctamente!")
+                    st.markdown(f"[Enviar datos por WhatsApp]({enlace_whatsapp})", unsafe_allow_html=True)
 
 # Botón flotante de WhatsApp
 whatsapp_button = """
