@@ -67,7 +67,7 @@ whatsapp_button = """
 <style>
 #whatsapp {
     position: fixed;
-    bottom: 20px;
+    bottom: 80px;
     right: 20px;
     background-color: #25D366;
     color: white;
