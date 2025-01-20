@@ -35,63 +35,62 @@ def mostrar_autos_publicados():
 
 # Ficha para cargar datos
 def cargar_datos():
-    if st.session_state["show_form"]:
-        with st.expander("¡Completá la ficha para publicar un auto!", expanded=True):
-            with st.form("formulario_auto", clear_on_submit=True):
-                st.subheader("Formulario para comprar o vender un auto")
+    with st.expander("¡Completá la ficha para publicar un auto!", expanded=st.session_state["show_form"]):
+        with st.form("formulario_auto", clear_on_submit=True):
+            st.subheader("Formulario para comprar o vender un auto")
 
-                # Información del usuario
-                nombre = st.text_input("Nombre", max_chars=50)
-                email = st.text_input("Email", max_chars=50)
-                telefono = st.text_input("Teléfono de contacto", max_chars=20)
-                tipo = st.radio("Qué querés hacer?", ["Comprar", "Vender"])
+            # Información del usuario
+            nombre = st.text_input("Nombre", max_chars=50)
+            email = st.text_input("Email", max_chars=50)
+            telefono = st.text_input("Teléfono de contacto", max_chars=20)
+            tipo = st.radio("Qué querés hacer?", ["Comprar", "Vender"])
 
-                # Datos del vehículo
-                marca = st.text_input("Marca del auto", max_chars=30)
-                modelo = st.text_input("Modelo del auto", max_chars=30)
-                anio = st.number_input("Año del auto", min_value=1900, max_value=datetime.now().year, step=1)
-                estado = st.selectbox("Estado del auto", ["Nuevo", "Usado"])
-                papeles = st.radio("Papeles al día?", ["Sí", "No"])
-                descripcion = st.text_area("Descripción adicional")
+            # Datos del vehículo
+            marca = st.text_input("Marca del auto", max_chars=30)
+            modelo = st.text_input("Modelo del auto", max_chars=30)
+            anio = st.number_input("Año del auto", min_value=1900, max_value=datetime.now().year, step=1)
+            estado = st.selectbox("Estado del auto", ["Nuevo", "Usado"])
+            papeles = st.radio("Papeles al día?", ["Sí", "No"])
+            descripcion = st.text_area("Descripción adicional")
 
-                # Subida de imágenes
-                imagenes = st.file_uploader("Subí hasta 3 imágenes del auto", type=["jpg", "jpeg", "png"], accept_multiple_files=True, key="imagenes_auto")
+            # Subida de imágenes
+            imagenes = st.file_uploader("Subí hasta 3 imágenes del auto", type=["jpg", "jpeg", "png"], accept_multiple_files=True, key="imagenes_auto")
 
-                # Botón de envío
-                enviado = st.form_submit_button("Enviar")
+            # Botón de envío
+            enviado = st.form_submit_button("Enviar")
 
-                if enviado:
-                    if imagenes and len(imagenes) > 3:
-                        st.error("Solo podés subir hasta 3 imágenes.")
-                    else:
-                        nuevo_registro = {
-                            "Nombre": nombre,
-                            "Email": email,
-                            "Teléfono": telefono,
-                            "Tipo": tipo,
-                            "Marca": marca,
-                            "Modelo": modelo,
-                            "Año": anio,
-                            "Estado": estado,
-                            "Papeles": papeles,
-                            "Descripción": descripcion,
-                            "Fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                        }
-                        st.session_state["data"] = st.session_state["data"].append(nuevo_registro, ignore_index=True)
+            if enviado:
+                if imagenes and len(imagenes) > 3:
+                    st.error("Solo podés subir hasta 3 imágenes.")
+                else:
+                    nuevo_registro = {
+                        "Nombre": nombre,
+                        "Email": email,
+                        "Teléfono": telefono,
+                        "Tipo": tipo,
+                        "Marca": marca,
+                        "Modelo": modelo,
+                        "Año": anio,
+                        "Estado": estado,
+                        "Papeles": papeles,
+                        "Descripción": descripcion,
+                        "Fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    }
+                    st.session_state["data"] = st.session_state["data"].append(nuevo_registro, ignore_index=True)
 
-                        # Mensaje de WhatsApp
-                        mensaje = (
-                            f"Hola, soy {nombre}.\n"
-                            f"Tipo: {tipo}.\n"
-                            f"Marca: {marca}, Modelo: {modelo}, Año: {anio}.\n"
-                            f"Estado: {estado}, Papeles al día: {papeles}.\n"
-                            f"Descripción: {descripcion}.\n"
-                            f"Teléfono: {telefono}"
-                        )
-                        enlace_whatsapp = f"https://wa.me/+5492664502682?text={mensaje.replace(' ', '%20').replace('\n', '%0A')}"
+                    # Mensaje de WhatsApp
+                    mensaje = (
+                        f"Hola, soy {nombre}.\n"
+                        f"Tipo: {tipo}.\n"
+                        f"Marca: {marca}, Modelo: {modelo}, Año: {anio}.\n"
+                        f"Estado: {estado}, Papeles al día: {papeles}.\n"
+                        f"Descripción: {descripcion}.\n"
+                        f"Teléfono: {telefono}"
+                    )
+                    enlace_whatsapp = f"https://wa.me/+5492664502682?text={mensaje.replace(' ', '%20').replace('\n', '%0A')}"
 
-                        st.success("Datos enviados correctamente!")
-                        st.markdown(f"[Enviar datos por WhatsApp]({enlace_whatsapp})", unsafe_allow_html=True)
+                    st.success("Datos enviados correctamente!")
+                    st.markdown(f"[Enviar datos por WhatsApp]({enlace_whatsapp})", unsafe_allow_html=True)
 
 # Botón flotante de WhatsApp y enlace a ficha
 floating_buttons = """
@@ -106,24 +105,30 @@ floating_buttons = """
     margin-bottom: 10px;
     width: 60px;
     height: 60px;
-    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     cursor: pointer;
     text-decoration: none;
     color: white;
+    border: none;
+    background: transparent;
+}
+#car-form {
+    background-image: url('https://example.com/car-icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 70px;
+    height: 70px;
 }
 #whatsapp {
     background-color: #25D366;
-}
-#car-form {
-    background-color: #007BFF;
+    border-radius: 50%;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
 }
 </style>
 <div id="buttons">
-    <a id="car-form" class="button" href="#" onclick="window.showForm()">🚗</a>
+    <button id="car-form" class="button" onclick="window.showForm()"></button>
     <a id="whatsapp" class="button" href="https://wa.me/+5492664502682?text=Vengo%20del%20site%20y%20quiero%20más%20info%20para%20comprar%20o%20vender%20mi%20auto" target="_blank">💬</a>
 </div>
 <script>
