@@ -16,7 +16,7 @@ st.image("logof.png", width=300)
 st.markdown("<h1 style='text-align: center;'>Compra y Venta de Autos</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>Compra y Vende con Confianza</h3>", unsafe_allow_html=True)
 
-# Mostrar autos publicados con botones de interacción
+# Mostrar autos publicados con slider
 def mostrar_autos_publicados():
     st.subheader("Autos publicados")
     imagenes_publicadas = ["11.png", "12.png", "8.png", "9.png"]  # Lista de imágenes subidas por la empresa
@@ -24,11 +24,9 @@ def mostrar_autos_publicados():
     if not imagenes_publicadas:
         st.info("Aún no hay autos publicados.")
     else:
-        for index, img in enumerate(imagenes_publicadas):
-            st.image(img, caption=f"Auto {index + 1}", use_column_width=True)
-            enlace_whatsapp = f"https://wa.me/+5492664502682?text=Quiero%20info%20sobre%20este%20auto:%20{img}"
-            st.markdown(f"[Quiero info sobre este auto]({enlace_whatsapp})", unsafe_allow_html=True)
-            st.markdown("---")
+        # Slider interactivo
+        selected_image = st.select_slider("Desliza para ver autos", options=imagenes_publicadas, format_func=lambda x: f"Auto {imagenes_publicadas.index(x) + 1}")
+        st.image(selected_image, caption=f"Vista del auto {imagenes_publicadas.index(selected_image) + 1}", use_column_width=True)
 
 # Ficha para cargar datos
 def cargar_datos():
