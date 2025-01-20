@@ -117,7 +117,7 @@ floating_buttons = """
     background: transparent;
 }
 #car-form {
-    background-image: url('https://example.com/car-icon.png');
+    background-image: url('logow.png');
     background-size: contain;
     background-repeat: no-repeat;
     width: 70px;
