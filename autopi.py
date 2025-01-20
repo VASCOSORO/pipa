@@ -10,8 +10,9 @@ if "data" not in st.session_state:
     st.session_state["data"] = pd.DataFrame(columns=["Nombre", "Email", "Teléfono", "Tipo", "Marca", "Modelo", "Año", "Estado", "Papeles", "Descripción", "Fecha"])
 
 # Encabezado
-st.title("Compra y Venta de Autos")
-st.markdown("Subí tu auto para vender o encontrá el auto que buscás.")
+st.image("logof.png", use_column_width=True)
+st.markdown("<h1 style='text-align: center;'>Compra y Venta de Autos</h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Compra y Vende con Confianza</h3>", unsafe_allow_html=True)
 
 # Mostrar registros
 def mostrar_registros():
@@ -91,7 +92,35 @@ whatsapp_button = """
 </div>
 """
 
+# Footer
+footer = """
+<style>
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #333;
+}
+#footer a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+#footer a:hover {
+    text-decoration: underline;
+}
+</style>
+<div id="footer">
+    Powered by <a href="https://instagram.com/vasco.soro" target="_blank">vasco.soro</a>
+</div>
+"""
+
 # Render de las secciones
 mostrar_registros()
 cargar_datos()
 st.markdown(whatsapp_button, unsafe_allow_html=True)
+st.markdown(footer, unsafe_allow_html=True)
