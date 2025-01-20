@@ -16,8 +16,8 @@ if "show_form" not in st.session_state:
 
 # Encabezado
 st.image("logof.png", width=300)
-st.markdown("<h1 style='text-align: center;'>Compra y Venta de Autos</h1>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: center;'>Compra y Vende con Confianza</h3>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; text-transform: uppercase;'>Compra y Venta de Autos</h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Compra y vende con transparencia, seguridad y respaldo</h3>", unsafe_allow_html=True)
 
 # Mostrar autos publicados con diseño estilo revista
 def mostrar_autos_publicados():
@@ -30,7 +30,7 @@ def mostrar_autos_publicados():
         cols = st.columns(2)  # Dividir en dos columnas para diseño estilo revista
         for index, img in enumerate(imagenes_publicadas):
             with cols[index % 2]:
-                st.image(img, caption=f"Auto {index + 1}", use_column_width=True)
+                st.image(img, caption=f"Auto {index + 1}", use_container_width=True)
                 enlace_whatsapp = f"https://wa.me/+5492664502682?text=Quiero%20info%20sobre%20este%20auto:%20{img}"
                 st.markdown(f"[Quiero info sobre este auto]({enlace_whatsapp})", unsafe_allow_html=True)
                 st.markdown("---")
