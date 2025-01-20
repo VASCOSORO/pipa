@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
+from PIL import Image
 
 # Configuración inicial
 st.set_page_config(page_title="Compra y Venta de Autos", page_icon="🚗", layout="wide")
@@ -14,13 +15,15 @@ st.image("logof.png", width=400)
 st.markdown("<h1 style='text-align: center;'>Compra y Venta de Autos</h1>", unsafe_allow_html=True)
 st.markdown("<h3 style='text-align: center;'>Compra y Vende con Confianza</h3>", unsafe_allow_html=True)
 
-# Mostrar registros
-def mostrar_registros():
+# Mostrar autos publicados con slider
+def mostrar_autos_publicados():
     st.subheader("Autos publicados")
-    if st.session_state["data"].empty:
+    imagenes_publicadas = ["11.png", "12.png", "8.png", "9.png"]  # Lista de imágenes subidas por la empresa
+
+    if not imagenes_publicadas:
         st.info("Aún no hay autos publicados.")
     else:
-        st.dataframe(st.session_state["data"])
+        st.image(imagenes_publicadas, caption=["Auto 1", "Auto 2", "Auto 3", "Auto 4"], width=400, use_column_width="auto")
 
 # Ficha para cargar datos
 def cargar_datos():
@@ -69,11 +72,16 @@ def cargar_datos():
 
                     # Mensaje de WhatsApp
                     mensaje = (
-                        f"Hola, soy {nombre}.\n"
-                        f"Tipo: {tipo}.\n"
-                        f"Marca: {marca}, Modelo: {modelo}, Año: {anio}.\n"
-                        f"Estado: {estado}, Papeles al día: {papeles}.\n"
-                        f"Descripción: {descripcion}.\n"
+                        f"Hola, soy {nombre}.
+"
+                        f"Tipo: {tipo}.
+"
+                        f"Marca: {marca}, Modelo: {modelo}, Año: {anio}.
+"
+                        f"Estado: {estado}, Papeles al día: {papeles}.
+"
+                        f"Descripción: {descripcion}.
+"
                         f"Teléfono: {telefono}"
                     )
                     enlace_whatsapp = f"https://wa.me/+5492664502682?text={mensaje.replace(' ', '%20').replace('\n', '%0A')}"
@@ -139,7 +147,7 @@ footer = """
 """
 
 # Render de las secciones
-mostrar_registros()
+mostrar_autos_publicados()
 cargar_datos()
 st.markdown(whatsapp_button, unsafe_allow_html=True)
 st.markdown(footer, unsafe_allow_html=True)
