@@ -82,16 +82,11 @@ def cargar_datos():
 
                     # Mensaje de WhatsApp
                     mensaje = (
-                        f"Hola, soy {nombre}.
-"
-                        f"Tipo: {tipo}.
-"
-                        f"Marca: {marca}, Modelo: {modelo}, Año: {anio}.
-"
-                        f"Estado: {estado}, Papeles al día: {papeles}.
-"
-                        f"Descripción: {descripcion}.
-"
+                        f"Hola, soy {nombre}.\n"
+                        f"Tipo: {tipo}.\n"
+                        f"Marca: {marca}, Modelo: {modelo}, Año: {anio}.\n"
+                        f"Estado: {estado}, Papeles al día: {papeles}.\n"
+                        f"Descripción: {descripcion}.\n"
                         f"Teléfono: {telefono}"
                     )
                     enlace_whatsapp = f"https://wa.me/+5492664502682?text={mensaje.replace(' ', '%20').replace('\n', '%0A')}"
