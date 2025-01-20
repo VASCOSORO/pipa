@@ -94,7 +94,7 @@ def cargar_datos():
                     st.success("Datos enviados correctamente!")
                     st.markdown(f"[Enviar datos por WhatsApp]({enlace_whatsapp})", unsafe_allow_html=True)
 
-# Nuevo botón flotante con logow.png
+# Nuevo botón flotante visible con logow.png
 floating_buttons = """
 <style>
 #buttons {
@@ -107,7 +107,7 @@ floating_buttons = """
     width: 70px;
     height: 70px;
     background-image: url('logow.png');
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     border: none;
     cursor: pointer;
