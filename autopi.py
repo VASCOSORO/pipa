@@ -89,12 +89,12 @@ def cargar_datos():
                         f"Descripción: {descripcion}.\n"
                         f"Teléfono: {telefono}"
                     )
-                    enlace_whatsapp = f"https://wa.me/+5492664502682?text={mensaje.replace(' ', '%20').replace('\n', '%0A')}"
+                    enlace_whatsapp = f"https://wa.me/+5492664502682?text={mensaje.replace(' ', '%20').replace('\\n', '%0A')}"
 
                     st.success("Datos enviados correctamente!")
                     st.markdown(f"[Enviar datos por WhatsApp]({enlace_whatsapp})", unsafe_allow_html=True)
 
-# Nuevo botón flotante visible con logow.png
+# Botón flotante visible con logow.png
 floating_buttons = """
 <style>
 #buttons {
