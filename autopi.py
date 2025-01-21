@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime
 from PIL import Image
+from streamlit.components.v1 import html
 
 # Configuración inicial
 st.set_page_config(page_title="Compra y Venta de Autos", page_icon="🚗", layout="wide")
@@ -88,13 +89,13 @@ def cargar_datos():
                         f"Descripción: {descripcion}.\n"
                         f"Teléfono: {telefono}"
                     )
-                    enlace_whatsapp = f"https://wa.me/+5492664502682?text={mensaje.replace(' ', '%20').replace('\\n', '%0A')}"
+                    enlace_whatsapp = f"https://wa.me/+5492664502682?text={mensaje.replace(' ', '%20').replace('\n', '%0A')}"
 
                     st.success("Datos enviados correctamente!")
                     st.markdown(f"[Enviar datos por WhatsApp]({enlace_whatsapp})", unsafe_allow_html=True)
 
-# Botón flotante visible con logow.png y fondo blanco de respaldo
-st.markdown("""
+# Nuevo botón flotante visible con logow.png
+floating_buttons = """
 <style>
 #buttons {
     position: fixed;
@@ -108,19 +109,19 @@ st.markdown("""
     background-image: url('logow.png');
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: white; /* Fondo blanco para asegurar visibilidad */
     border: 2px solid white;
     border-radius: 50%;
     cursor: pointer;
+    display: block;
 }
 </style>
 <div id="buttons">
     <a id="whatsapp-button" href="https://wa.me/+5492664502682?text=Vengo%20del%20site%20y%20quiero%20más%20info%20para%20comprar%20o%20vender%20mi%20auto" target="_blank"></a>
 </div>
-""", unsafe_allow_html=True)
+"""
 
 # Footer
-st.markdown("""
+footer = """
 <style>
 #footer {
     position: fixed;
@@ -144,8 +145,10 @@ st.markdown("""
 <div id="footer">
     Powered by <a href="https://instagram.com/vasco.soro" target="_blank">vasco.soro</a>
 </div>
-""", unsafe_allow_html=True)
+"""
 
 # Render de las secciones
 mostrar_autos_publicados()
 cargar_datos()
+st.markdown(floating_buttons, unsafe_allow_html=True)
+st.markdown(footer, unsafe_allow_html=True)
