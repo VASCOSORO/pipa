@@ -93,7 +93,7 @@ def cargar_datos():
                     st.success("Datos enviados correctamente!")
                     st.markdown(f"[Enviar datos por WhatsApp]({enlace_whatsapp})", unsafe_allow_html=True)
 
-# Botón flotante visible con logow.png
+# Botón flotante visible con logow.png y fondo blanco de respaldo
 st.markdown("""
 <style>
 #buttons {
@@ -108,7 +108,7 @@ st.markdown("""
     background-image: url('logow.png');
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: white;
+    background-color: white; /* Fondo blanco para asegurar visibilidad */
     border: 2px solid white;
     border-radius: 50%;
     cursor: pointer;
